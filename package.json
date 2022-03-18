@@ -1,0 +1,55 @@
+{
+  "name": "msdeditor",
+  "version": "0.0.1",
+  "description": "An electron-nuxt project",
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "dev": "node .electron-nuxt/dev.js",
+    "build": "node .electron-nuxt/build.js",
+    "lint": "node_modules/.bin/eslint --ext .js,.vue,.ts -f ./node_modules/eslint-friendly-formatter ./src",
+    "lint:fix": "yarn lint --fix",
+    "preinstall": "node .electron-nuxt/check-engines.js",
+    "postinstall": "electron-builder install-app-deps & yarn lint:fix"
+  },
+  "keywords": [],
+  "author": "小畑佑馬 <obata@benesse-infoshell.co.jp>",
+  "license": "MIT",
+  "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
+  "engines": {
+    "node": ">=14.14.9"
+  },
+  "resolutions": {
+    "@types/node": "14.14.9"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "8.0.0",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "@xpda-dev/core": "^0.1.6",
+    "@xpda-dev/electron-builder": "^0.2.1",
+    "@xpda-dev/electron-launcher": "^0.3.0",
+    "@xpda-dev/webpack-step": "^0.1.6",
+    "brace": "^0.11.1",
+    "cross-env": "^7.0.3",
+    "deepmerge": "^4.2.2",
+    "electron": "^17.1.2",
+    "electron-builder": "^22.14.5",
+    "electron-devtools-installer": "^3.2.0",
+    "eslint": "8.1.0",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-loader": "4.0.2",
+    "node-sass": "^6.0.1",
+    "nuxt": "^2.15.8",
+    "roboto-fontface": "^0.10.0",
+    "sass-loader": "12.4.0",
+    "splitpanes": "^2.4.1",
+    "vue2-brace-editor": "^2.0.2",
+    "vuetify": "^2.6.4",
+    "webpack": "^4.46.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "@nuxtjs/markdownit": "^2.0.0",
+    "@toast-ui/editor": "^3.1.3"
+  }
+}

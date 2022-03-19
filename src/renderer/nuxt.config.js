@@ -23,7 +23,22 @@ module.exports = {
     '@nuxtjs/markdownit'
   ],
   markdownit: {
-    injected: true
+    preset: 'default',
+    injected: true,
+    breaks: true,
+    html: true,
+    linkify: true,
+    typography: true,
+    xhtmlOut: true,
+    langPrefix: 'language-',
+    quotes: '“”‘’',
+    highlight (/* str, lang */) { return '' },
+    use: [
+      'markdown-it-emoji',
+      'markdown-it-highlightjs',
+      'markdown-it-plantuml',
+      'markdown-it-multimd-table'
+    ]
   },
   vuetify: {
     theme: {

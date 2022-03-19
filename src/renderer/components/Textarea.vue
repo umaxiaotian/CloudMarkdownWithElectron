@@ -4,103 +4,103 @@
     <div style="height: 100vh" @keydown="keydownEditor">
       <textarea id="lineCounter" wrap="off" readonly>1.</textarea>
       <textarea
-        @scroll="scrollEditor()"
         id="codeEditor"
-        wrap="off"
-        @input="changeEditor"
         v-model="markdown"
-      ></textarea>
+        wrap="off"
+        @scroll="scrollEditor()"
+        @input="changeEditor"
+      />
     </div>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: "Editor",
+  name: 'Editor',
   props: {
     scrollTop: {
       type: Number,
-      default: 0,
+      default: 0
     },
     mainText: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
-    watch: {
-    mainText(value) {
-      document.getElementById("codeEditor").textContent = value;
-    },
-    scrollTop(value){
-      document.getElementById("codeEditor").scrollTop = value;
+  data () {
+    return {
+      lineCountCache: 0,
+      codeEditor: this.scrollTop,
+      lineCounter: this.scrollTop
     }
   },
   computed: {
     markdown: {
-      get() {
-        return this.mainText;
+      get () {
+        return this.mainText
       },
-      set(mainText) {
-        this.$emit("input", mainText);
-      },
-    },
-  },
-  data() {
-    return {
-      lineCountCache: 0,
-      codeEditor: this.scrollTop,
-      lineCounter: this.scrollTop,
+      set (mainText) {
+        this.$emit('input', mainText)
+      }
     }
   },
-  mounted() {
-    this.codeEditor = document.getElementById("codeEditor");
-    this.lineCounter = document.getElementById("lineCounter");
-    this.line_counter();
+  watch: {
+    mainText (value) {
+      document.getElementById('codeEditor').textContent = value
+    },
+    scrollTop (value) {
+      document.getElementById('codeEditor').scrollTop = value
+    }
+  },
+  mounted () {
+    this.codeEditor = document.getElementById('codeEditor')
+    this.lineCounter = document.getElementById('lineCounter')
+    this.line_counter()
     // document.getElementById("codeEditor").textContent = this.mainText;
   },
   methods: {
-    changeEditor() {
-      var contents = document.getElementById("codeEditor").textContent;
-      this.$emit("update:mainText", contents);
-      this.line_counter();
+    changeEditor () {
+      const contents = document.getElementById('codeEditor').textContent
+      this.$emit('update:mainText', contents)
+      this.line_counter()
     },
-    scrollEditor() {
-      this.lineCounter.scrollTop = this.codeEditor.scrollTop;
-      this.lineCounter.scrollLeft = this.codeEditor.scrollLeft;
-      //親コンポーネントにスクロール情報を送信
-      var scrollPlace=document.getElementById("codeEditor");
-      this.$emit("textAreaScroll", scrollPlace);
+    scrollEditor () {
+      this.lineCounter.scrollTop = this.codeEditor.scrollTop
+      this.lineCounter.scrollLeft = this.codeEditor.scrollLeft
+      // 親コンポーネントにスクロール情報を送信
+      const scrollPlace = document.getElementById('codeEditor')
+      this.$emit('textAreaScroll', scrollPlace)
     },
-    //タブ入力アルゴリズム
-    keydownEditor(e) {
-      const { keyCode } = e;
-      const { value, selectionStart, selectionEnd } = this.codeEditor;
+    // タブ入力アルゴリズム
+    keydownEditor (e) {
+      const { keyCode } = e
+      const { value, selectionStart, selectionEnd } = this.codeEditor
 
       if (keyCode === 9) {
         // TAB = 9
-        e.preventDefault();
+        e.preventDefault()
         this.codeEditor.value =
-          value.slice(0, selectionStart) + "\t" + value.slice(selectionEnd);
+          value.slice(0, selectionStart) + '\t' + value.slice(selectionEnd)
         this.codeEditor.setSelectionRange(
           selectionStart + 2,
           selectionStart + 2
-        );
+        )
       }
     },
 
-    line_counter() {
-      const lineCount = codeEditor.value.split("\n").length;
-      const outarr = new Array();
+    line_counter () {
+      const lineCount = codeEditor.value.split('\n').length
+      const outarr = new Array()
       if (this.lineCountCache != lineCount) {
         for (let x = 0; x < lineCount; x++) {
-          outarr[x] = x + 1 + ".";
+          outarr[x] = x + 1 + '.'
         }
-        this.lineCounter.value = outarr.join("\n");
+        this.lineCounter.value = outarr.join('\n')
       }
-      this.lineCountCache = lineCount;
-    },
-  },
-};
+      this.lineCountCache = lineCount
+    }
+  }
+}
 </script>
 <style scoped>
 .theme--dark.v-application {

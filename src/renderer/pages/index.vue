@@ -143,6 +143,19 @@ export default {
 /* ::-webkit-scrollbar {
     display: none;
 } */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+   background: linear-gradient(rgb(211, 211, 211),rgb(211, 211, 211));
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #7c7c7c;
+  border-radius:5px;
+}
 
 html {
   overflow: hidden !important;

@@ -1,56 +1,98 @@
 
 <template>
   <v-app>
-    <div @input="changeEditor" @scroll="scrollEditor" @keydown="keydownEditor">
-      <textarea id="lineCounter" wrap="off" readonly>1.</textarea
-      ><textarea id="codeEditor" wrap="off"></textarea>
+    <div style="height: 100vh" @keydown="keydownEditor">
+      <textarea id="lineCounter" wrap="off" readonly>1.</textarea>
+      <textarea
+        @scroll="scrollEditor()"
+        id="codeEditor"
+        wrap="off"
+        @input="changeEditor"
+        v-model="markdown"
+      ></textarea>
     </div>
   </v-app>
 </template>
 
-
 <script>
 export default {
   name: "Editor",
-  components: {},
+  props: {
+    scrollTop: {
+      type: Number,
+      default: 0,
+    },
+    mainText: {
+      type: String,
+      default: "",
+    },
+  },
+    watch: {
+    mainText(value) {
+      document.getElementById("codeEditor").textContent = value;
+    },
+    scrollTop(value){
+      document.getElementById("codeEditor").scrollTop = value;
+    }
+  },
+  computed: {
+    markdown: {
+      get() {
+        return this.mainText;
+      },
+      set(mainText) {
+        this.$emit("input", mainText);
+      },
+    },
+  },
   data() {
     return {
       lineCountCache: 0,
-      codeEditor: "",
-      lineCounter: "",
-    };
+      codeEditor: this.scrollTop,
+      lineCounter: this.scrollTop,
+    }
   },
   mounted() {
     this.codeEditor = document.getElementById("codeEditor");
     this.lineCounter = document.getElementById("lineCounter");
+    this.line_counter();
+    // document.getElementById("codeEditor").textContent = this.mainText;
   },
   methods: {
     changeEditor() {
+      var contents = document.getElementById("codeEditor").textContent;
+      this.$emit("update:mainText", contents);
       this.line_counter();
     },
     scrollEditor() {
       this.lineCounter.scrollTop = this.codeEditor.scrollTop;
       this.lineCounter.scrollLeft = this.codeEditor.scrollLeft;
+      //親コンポーネントにスクロール情報を送信
+      var scrollPlace=document.getElementById("codeEditor");
+      this.$emit("textAreaScroll", scrollPlace);
     },
+    //タブ入力アルゴリズム
     keydownEditor(e) {
-      console.log(e);
-      let { keyCode } = e;
-      let { value, selectionStart, selectionEnd } = codeEditor;
+      const { keyCode } = e;
+      const { value, selectionStart, selectionEnd } = this.codeEditor;
 
       if (keyCode === 9) {
         // TAB = 9
         e.preventDefault();
-        codeEditor.value =
+        this.codeEditor.value =
           value.slice(0, selectionStart) + "\t" + value.slice(selectionEnd);
-        codeEditor.setSelectionRange(selectionStart + 2, selectionStart + 2);
+        this.codeEditor.setSelectionRange(
+          selectionStart + 2,
+          selectionStart + 2
+        );
       }
     },
 
     line_counter() {
-      var lineCount = codeEditor.value.split("\n").length;
-      var outarr = new Array();
+      const lineCount = codeEditor.value.split("\n").length;
+      const outarr = new Array();
       if (this.lineCountCache != lineCount) {
-        for (var x = 0; x < lineCount; x++) {
+        for (let x = 0; x < lineCount; x++) {
           outarr[x] = x + 1 + ".";
         }
         this.lineCounter.value = outarr.join("\n");
@@ -73,6 +115,18 @@ export default {
 }
 </style>
 <style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: lucida console, courier new, courier, monospace;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 #codeEditor,
 #lineCounter {
   font-family: lucida console, courier new, courier, monospace;
@@ -92,8 +146,8 @@ export default {
   padding-left: calc(3.5rem + 5px);
   width: 100%;
   /* Determine appearance of code editor */
-  background-color: #272822;
-  border-color: #272822;
+  background-color: #313131;
+  border-color: #272727;
   color: #ffffff;
 }
 #lineCounter {
@@ -107,7 +161,7 @@ export default {
   position: absolute;
   width: 3.5rem;
   /* Determine appearance of line counter */
-  background-color: #3e3d32;
+  background-color: #242424;
   border-color: #3e3d32;
   color: #928869;
 }

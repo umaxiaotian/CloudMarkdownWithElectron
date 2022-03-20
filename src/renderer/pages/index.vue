@@ -102,6 +102,11 @@ export default {
 
     Editor
   },
+   head() {
+    return {
+      title: 'MsdMD Code'
+    }
+  },
   data: () => ({
     drawer: true,
     appBarColor: 'grey',

@@ -8,7 +8,7 @@ module.exports = {
   ssr: false,
   target: 'static',
   head: {
-    title: 'msdeditor',
+    title: 'MsdMD Code',
     meta: [{ charset: 'utf-8' }]
   },
   loading: false,

@@ -46,7 +46,8 @@ export default {
   },
   watch: {
     mainText (value) {
-      document.getElementById('codeEditor').textContent = value
+      document.getElementById('codeEditor').textContent = value;
+      this.line_counter();
     },
     scrollTop (value) {
       document.getElementById('codeEditor').scrollTop = value

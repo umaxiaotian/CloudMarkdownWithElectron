@@ -11,11 +11,6 @@ export default {
       default: ''
     }
   },
-  data () {
-    return {
-      markdown: this.markdown
-    }
-  }
 }
 </script>
 

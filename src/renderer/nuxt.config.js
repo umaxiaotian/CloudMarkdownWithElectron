@@ -35,9 +35,18 @@ module.exports = {
     highlight (/* str, lang */) { return '' },
     use: [
       'markdown-it-emoji',
-      'markdown-it-highlightjs',
       'markdown-it-plantuml',
-      'markdown-it-multimd-table'
+      'markdown-it-multimd-table',
+      [
+        'markdown-it-link-attributes',
+        {
+          attrs: {
+            target: '_blank',
+            rel: 'noopener'
+          }
+        }
+      ],
+      'markdown-it-github-toc'
     ]
   },
   vuetify: {

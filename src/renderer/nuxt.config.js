@@ -38,15 +38,10 @@ module.exports = {
       'markdown-it-highlightjs',
       'markdown-it-plantuml',
       'markdown-it-multimd-table',
-      [
-        'markdown-it-link-attributes',
-        {
-          attrs: {
-            target: '_blank',
-            rel: 'noopener'
-          }
-        }
-      ]
+      'markdown-it-footnote',
+      'markdown-it-mark',
+      'markdown-it-deflist',
+      'markdown-it-github-toc'
     ]
   },
   vuetify: {

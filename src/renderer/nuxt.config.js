@@ -36,7 +36,6 @@ module.exports = {
     use: [
       'markdown-it-emoji',
       'markdown-it-plantuml',
-      'markdown-it-multimd-table',
       [
         'markdown-it-link-attributes',
         {

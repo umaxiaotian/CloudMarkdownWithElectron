@@ -35,7 +35,9 @@ module.exports = {
     highlight (/* str, lang */) { return '' },
     use: [
       'markdown-it-emoji',
+      'markdown-it-highlightjs',
       'markdown-it-plantuml',
+      'markdown-it-multimd-table',
       [
         'markdown-it-link-attributes',
         {
@@ -44,8 +46,7 @@ module.exports = {
             rel: 'noopener'
           }
         }
-      ],
-      'markdown-it-github-toc'
+      ]
     ]
   },
   vuetify: {

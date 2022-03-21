@@ -1,6 +1,6 @@
 
 <template>
-  <div class="viewMdArea" v-html="$md.render(markdown)" />
+  <div class="viewMdArea" v-html="$md.render(markdown)" @scroll="viewrScroll"/>
 </template>
 <script>
 
@@ -10,6 +10,12 @@ export default {
     markdown: {
       type: String,
       default: ''
+    }
+  },
+  methods:{
+    viewrScroll(value){
+      // console.log(value);
+      this.$emit('vScroll', value)
     }
   }
 }

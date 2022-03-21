@@ -77,7 +77,6 @@ export default {
     },
     // 文字列を更新
     inputEditor (contents) {
-      console.log(contents)
       this.markdown = contents
     }
   }

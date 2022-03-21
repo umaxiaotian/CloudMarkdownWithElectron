@@ -3,7 +3,6 @@
  * This default configuration can be overwritten in this file
  * @link {https://nuxtjs.org/guide/configuration/}
  */
-
 module.exports = {
   ssr: false,
   target: 'static',
@@ -13,38 +12,14 @@ module.exports = {
   },
   loading: false,
   plugins: [
-
+    '@/plugins/markdown-it'
   ],
   buildModules: [
     '@nuxt/typescript-build'
   ],
   modules: [
-    '@nuxtjs/vuetify',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/vuetify'
   ],
-  markdownit: {
-    preset: 'default',
-    injected: true,
-    breaks: true,
-    html: true,
-    linkify: true,
-    typography: true,
-    xhtmlOut: true,
-    langPrefix: 'language-',
-    quotes: '“”‘’',
-    highlight (/* str, lang */) { return '' },
-    use: [
-      'markdown-it-emoji',
-      'markdown-it-highlightjs',
-      'markdown-it-plantuml',
-      'markdown-it-multimd-table',
-      'markdown-it-footnote',
-      'markdown-it-mark',
-      'markdown-it-deflist',
-      'markdown-it-github-toc',
-      
-    ]
-  },
   vuetify: {
     theme: {
       themes: {

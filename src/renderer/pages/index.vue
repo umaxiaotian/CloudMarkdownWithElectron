@@ -16,7 +16,7 @@
       />
       <v-divider class="mx-3 my-5" />
       <div class="mb-5 d-flex justify-center align-center">
-        <v-btn icon  @click="clickToolBar">
+        <v-btn icon @click="clickToolBar">
           <v-avatar :size="26">
             <v-icon dark> mdi-hammer-wrench </v-icon>
           </v-avatar>

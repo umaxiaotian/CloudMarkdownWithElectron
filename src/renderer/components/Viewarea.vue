@@ -3,6 +3,7 @@
   <div class="viewMdArea" v-html="$md.render(markdown)" />
 </template>
 <script>
+
 export default {
   name: 'Viewarea',
   props: {

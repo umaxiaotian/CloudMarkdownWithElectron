@@ -30,8 +30,8 @@ export default {
   data () {
     return {
       lineCountCache: 0,
-      codeEditor: this.scrollTop,
-      lineCounter: this.scrollTop,
+      codeEditor: '',
+      lineCounter: '',
       markdown: ''
     }
   },

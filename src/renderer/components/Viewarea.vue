@@ -941,6 +941,29 @@ export default {
 ::v-deep ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
+
+/* mermaid */
+/* image container */
+::v-deep div.mermaid {
+    width: fit-content;
+}
+
+/* image title */
+::v-deep .mermaid-title {
+    width: fit-content;
+    margin: auto;
+    font-weight: 900;
+    font-size: 2em;
+    color: white;
+    padding-bottom: 0.5em;
+}
+
+/* image itself */
+::v-deep .mermaid > svg {
+    margin: auto;
+    display: block;
+}
+
 </style>
 
 <style scoped>

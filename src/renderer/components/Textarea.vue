@@ -32,7 +32,7 @@ export default {
       lineCountCache: 0,
       codeEditor: this.scrollTop,
       lineCounter: this.scrollTop,
-      markdown: ""
+      markdown: ''
     }
   },
   // computed: {
@@ -44,13 +44,13 @@ export default {
   //       this.$emit('input', mainText)
   //     }
   //   }
-    
+
   // },
   watch: {
     mainText (value) {
       // console.log(value.split('\n').length);
-    this.markdown = value;
-    this.line_counter(value)
+      this.markdown = value
+      this.line_counter(value)
     },
     scrollTop (value) {
       document.getElementById('codeEditor').scrollTop = value
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     changeEditor () {
-       this.$emit('input', this.markdown)
+      this.$emit('input', this.markdown)
     },
     scrollEditor () {
       this.lineCounter.scrollTop = this.codeEditor.scrollTop

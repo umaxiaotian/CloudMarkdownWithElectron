@@ -1,5 +1,5 @@
+import { ipcMain, dialog } from 'electron'
 import BrowserWinHandler from './BrowserWinHandler'
-import { ipcMain,dialog } from 'electron'
 const fs = require('fs')
 const winHandler = new BrowserWinHandler({
   height: 600,
@@ -10,8 +10,8 @@ const winHandler = new BrowserWinHandler({
 // ------------------------------------
 // ファンクションメニュー
 // ------------------------------------
-//ファイルを開く
-ipcMain.handle('file-open', async (event) => {
+// ファイルを開く
+ipcMain.handle('file-open', async event => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     filters: [
       { name: 'マークダウン', extensions: ['md'] }
@@ -20,14 +20,14 @@ ipcMain.handle('file-open', async (event) => {
 
   if (canceled) return { canceled, data: [] }
 
-  const data = filePaths.map((filePath) =>
+  const data = filePaths.map(filePath =>
     fs.readFileSync(filePath, { encoding: 'utf8' })
   )
-  let returnData = [data,filePaths]
+  const returnData = [data, filePaths]
   return { canceled, returnData }
 })
 
-//名前を付けて保存
+// 名前を付けて保存
 ipcMain.handle('save', async (event, data) => {
   const { canceled, filePath } = await dialog.showSaveDialog({
     filters: [
@@ -39,8 +39,6 @@ ipcMain.handle('save', async (event, data) => {
 
   fs.writeFileSync(filePath, data)
 })
- 
-
 
 winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')

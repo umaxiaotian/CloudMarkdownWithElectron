@@ -58,36 +58,35 @@ export default {
   },
   data: () => ({
     drawer: true,
-    appBarColor: "grey",
-    appBarTitle: "Tasks",
-    appBarIcon: "mdi-lightbulb",
+    appBarColor: 'grey',
+    appBarTitle: 'Tasks',
+    appBarIcon: 'mdi-lightbulb',
     isSearching: false,
     links: [
-      { label: "Inbox", icon: "mdi-inbox", color: "background" },
+      { label: 'Inbox', icon: 'mdi-inbox', color: 'background' },
       {
-        label: "Planned",
-        icon: "mdi-clock-outline",
-        color: "background",
-      },
+        label: 'Planned',
+        icon: 'mdi-clock-outline',
+        color: 'background'
+      }
     ],
     projects: [
-      { label: "Accounting", color: "cyan", due_count: 1 },
-      { label: "Secret Game", color: "green" },
-      { label: "Dashboard", color: "blue", due_count: 1 },
+      { label: 'Accounting', color: 'cyan', due_count: 1 },
+      { label: 'Secret Game', color: 'green' },
+      { label: 'Dashboard', color: 'blue', due_count: 1 }
     ],
     issues: [
       {
-        title: "テーブル",
+        title: 'テーブル',
         order: 1,
-        description: "表機能を追加します。デフォルトでは4x4",
+        description: '表機能を追加します。デフォルトでは4x4'
       },
       {
-        title: "画像挿入",
+        title: '画像挿入',
         order: 2,
-        description: "画像挿入タグを挿入します。",
-      },
-    ],
-  }),
-};
+        description: '画像挿入タグを挿入します。'
+      }
+    ]
+  })
+}
 </script>
-

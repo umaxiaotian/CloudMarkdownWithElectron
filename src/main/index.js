@@ -1,4 +1,4 @@
-import { app, Menu, ipcMain,dialog } from 'electron'
+import { app, Menu, ipcMain, dialog } from 'electron'
 // ------------------------------------
 // メニュー
 // ------------------------------------
@@ -77,10 +77,6 @@ const template = Menu.buildFromTemplate([
 
 // メニューを適用する
 Menu.setApplicationMenu(template)
-
-
-
-
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

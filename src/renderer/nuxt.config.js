@@ -41,7 +41,8 @@ module.exports = {
       'markdown-it-footnote',
       'markdown-it-mark',
       'markdown-it-deflist',
-      'markdown-it-github-toc'
+      'markdown-it-github-toc',
+      
     ]
   },
   vuetify: {

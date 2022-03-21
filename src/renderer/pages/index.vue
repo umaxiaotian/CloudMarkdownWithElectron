@@ -16,7 +16,7 @@
       />
       <v-divider class="mx-3 my-5" />
       <div class="mb-5 d-flex justify-center align-center">
-        <v-btn icon>
+        <v-btn icon  @click="clickToolBar">
           <v-avatar :size="26">
             <v-icon dark> mdi-hammer-wrench </v-icon>
           </v-avatar>
@@ -26,7 +26,7 @@
         <div class="mb-5 d-flex justify-center align-center">
           <v-btn icon>
             <v-avatar :size="26">
-              <img src="//www.gravatar.com/avatar/none?f=y&d=mm" />
+              <img src="//www.gravatar.com/avatar/none?f=y&d=mm">
             </v-avatar>
           </v-btn>
         </div>
@@ -35,7 +35,7 @@
     <v-main>
       <div style="display: flex; min-height: min-content">
         <div style="height: 100vh; overflow: auto">
-          <Toolbar />
+          <Toolbar v-if="isShowToolbar" />
         </div>
         <div
           id="main-content"
@@ -49,54 +49,64 @@
 </template>
 
 <script>
-import Editor from "@/components/Editor";
-import Toolbar from "@/components/Toolbar";
+import Editor from '@/components/Editor'
+import Toolbar from '@/components/Toolbar'
 export default {
   components: {
     Editor,
-    Toolbar,
-  },
-  head() {
-    return {
-      title: "MsdMD Code",
-    };
+    Toolbar
   },
   data: () => ({
+    isShowToolbar: false,
     drawer: true,
-    appBarColor: "grey",
-    appBarTitle: "Tasks",
-    appBarIcon: "mdi-lightbulb",
+    appBarColor: 'grey',
+    appBarTitle: 'Tasks',
+    appBarIcon: 'mdi-lightbulb',
     isSearching: false,
     links: [
-      { label: "Inbox", icon: "mdi-inbox", color: "background" },
+      { label: 'Inbox', icon: 'mdi-inbox', color: 'background' },
       {
-        label: "Planned",
-        icon: "mdi-clock-outline",
-        color: "background",
-      },
+        label: 'Planned',
+        icon: 'mdi-clock-outline',
+        color: 'background'
+      }
     ],
     projects: [
-      { label: "Accounting", color: "cyan", due_count: 1 },
-      { label: "Secret Game", color: "green" },
-      { label: "Dashboard", color: "blue", due_count: 1 },
+      { label: 'Accounting', color: 'cyan', due_count: 1 },
+      { label: 'Secret Game', color: 'green' },
+      { label: 'Dashboard', color: 'blue', due_count: 1 }
     ],
     issues: [
       {
-        title: "テーブル",
+        title: 'テーブル',
         order: 1,
-        description: "表機能を追加します。デフォルトでは4x4",
+        description: '表機能を追加します。デフォルトでは4x4'
       },
       {
-        title: "画像挿入",
+        title: '画像挿入',
         order: 2,
-        description: "画像挿入タグを挿入します。",
-      },
-    ],
+        description: '画像挿入タグを挿入します。'
+      }
+    ]
   }),
-  created() {
-    this.$vuetify.theme.dark = true;
+  head () {
+    return {
+      title: 'MsdMD Code'
+    }
   },
-};
+  created () {
+    this.$vuetify.theme.dark = true
+  },
+  methods: {
+    clickToolBar () {
+      if (this.isShowToolbar == false) {
+        this.isShowToolbar = true
+      } else {
+        this.isShowToolbar = false
+      }
+    }
+  }
+}
 </script>
 <style >
 /* ::-webkit-scrollbar {

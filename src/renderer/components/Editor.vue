@@ -60,7 +60,7 @@ export default {
           break;
         case "saveas":
           // 名前を付けてファイルを保存
-          // saveNewFile();
+          ipcRenderer.invoke('save', this.markdown)
           break;
       }
     });

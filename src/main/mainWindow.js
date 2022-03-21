@@ -10,6 +10,7 @@ const winHandler = new BrowserWinHandler({
 // ------------------------------------
 // ファンクションメニュー
 // ------------------------------------
+//ファイルを開く
 ipcMain.handle('file-open', async (event) => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     filters: [
@@ -25,8 +26,19 @@ ipcMain.handle('file-open', async (event) => {
   let returnData = [data,filePaths]
   return { canceled, returnData }
 })
-//指定したファイルを読み込む
 
+//名前を付けて保存
+ipcMain.handle('save', async (event, data) => {
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    filters: [
+      { name: 'マークダウン', extensions: ['md'] }
+    ]
+  })
+
+  if (canceled) return
+
+  fs.writeFileSync(filePath, data)
+})
  
 
 

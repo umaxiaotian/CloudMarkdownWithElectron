@@ -1,5 +1,6 @@
 
 <template>
+<v-app>
     <div style="height: 100vh" @keydown="keydownEditor">
       <textarea id="lineCounter" wrap="off" readonly>1.</textarea>
       <textarea
@@ -10,6 +11,7 @@
         @input="changeEditor"
       />
     </div>
+</v-app>
 </template>
 
 <script>

@@ -10,7 +10,7 @@
         <div id="leftEditor">
           <Textarea
             :scroll-top="editorScrollTop"
-            :main-text="markdown"
+            :mainText="markdown"
             @textAreaScroll="editorScroll"
             @input="inputEditor"
           />
@@ -77,6 +77,7 @@ export default {
     },
     // 文字列を更新
     inputEditor(contents) {
+      console.log(contents);
       this.markdown = contents;
     },
   },

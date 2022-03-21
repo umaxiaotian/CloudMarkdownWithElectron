@@ -31,23 +31,26 @@ export default {
     return {
       lineCountCache: 0,
       codeEditor: this.scrollTop,
-      lineCounter: this.scrollTop
+      lineCounter: this.scrollTop,
+      markdown: ""
     }
   },
-  computed: {
-    markdown: {
-      get () {
-        return this.mainText
-      },
-      set (mainText) {
-        this.$emit('input', mainText)
-      }
-    }
-  },
+  // computed: {
+  //   markdown: {
+  //     get () {
+  //       return this.mainText
+  //     },
+  //     set (mainText) {
+  //       this.$emit('input', mainText)
+  //     }
+  //   }
+    
+  // },
   watch: {
     mainText (value) {
-      document.getElementById('codeEditor').textContent = value;
-      this.line_counter();
+      // console.log(value.split('\n').length);
+    this.markdown = value;
+    this.line_counter(value)
     },
     scrollTop (value) {
       document.getElementById('codeEditor').scrollTop = value
@@ -56,14 +59,11 @@ export default {
   mounted () {
     this.codeEditor = document.getElementById('codeEditor')
     this.lineCounter = document.getElementById('lineCounter')
-    this.line_counter()
     // document.getElementById("codeEditor").textContent = this.mainText;
   },
   methods: {
     changeEditor () {
-      const contents = document.getElementById('codeEditor').textContent
-      this.$emit('update:mainText', contents)
-      this.line_counter()
+       this.$emit('input', this.markdown)
     },
     scrollEditor () {
       this.lineCounter.scrollTop = this.codeEditor.scrollTop
@@ -89,8 +89,8 @@ export default {
       }
     },
 
-    line_counter () {
-      const lineCount = codeEditor.value.split('\n').length
+    line_counter (val) {
+      const lineCount = val.split('\n').length
       const outarr = new Array()
       if (this.lineCountCache != lineCount) {
         for (let x = 0; x < lineCount; x++) {

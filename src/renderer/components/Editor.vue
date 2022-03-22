@@ -71,6 +71,10 @@ export default {
       }
     });
   },
+    mounted() {
+    var rView = document.getElementById("rightView");
+    this.viewrScrollDefine = rView;
+  },
   methods: {
     forcus(val) {
       this.whichBlockOver = val;
@@ -80,8 +84,7 @@ export default {
       this.editorScrollDefine = val;
     },
     editorScroll(val) {
-      const rView = document.getElementById("rightView");
-      this.viewrScrollDefine = rView;
+  
       // スクロール比率を計算　（100%が1）
       const scrollRatio = val.scrollTop / (val.scrollHeight - val.clientHeight);
       this.scrollMerge(scrollRatio);

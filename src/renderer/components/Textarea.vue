@@ -1,6 +1,6 @@
 
 <template>
-<v-app>
+  <v-app>
     <div style="height: 100vh" @keydown="keydownEditor">
       <textarea id="lineCounter" wrap="off" readonly>1.</textarea>
       <textarea
@@ -11,7 +11,7 @@
         @input="changeEditor"
       />
     </div>
-</v-app>
+  </v-app>
 </template>
 
 <script>
@@ -56,16 +56,15 @@ export default {
       document.getElementById('codeEditor').scrollTop = value
     }
   },
-  created(){
+  created () {
 
-    
   },
   mounted () {
     this.codeEditor = document.getElementById('codeEditor')
     this.lineCounter = document.getElementById('lineCounter')
-    // document.getElementById("codeEditor").textContent = this.mainText; 
+    // document.getElementById("codeEditor").textContent = this.mainText;
 
-    this.$emit('codeEditorDefine',document.getElementById('codeEditor') )
+    this.$emit('codeEditorDefine', document.getElementById('codeEditor'))
   },
   methods: {
     changeEditor () {

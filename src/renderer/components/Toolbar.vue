@@ -79,11 +79,11 @@ export default {
       if (handle == "LeftAdd") {
         var headLine = 0;
         for (let i = pos_start; i--; ) {
-          var ranges = val.slice(i);
+          var ranges = val.slice(i-2,i);
           console.log(ranges);
-          if (~ranges.indexOf("\n")) {
+          if (ranges.match(/\n/)) {
             //改行コード2文字分を加算
-            headLine = i + 2;
+            headLine = i;
             console.log(i);
             break;
           }

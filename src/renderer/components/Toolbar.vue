@@ -12,9 +12,9 @@
       :extended="isSearching"
       style="position: sticky; top: 0; z-index: 1; margin-right: 1px"
     >
-      <v-toolbar-title> 構文定義 </v-toolbar-title>
+      <v-toolbar-title> 補助ツールバー </v-toolbar-title>
       <v-spacer />
-      <v-btn icon @click="isSearching = !isSearching">
+      <!-- <v-btn icon @click="isSearching = !isSearching">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <template v-if="isSearching" #extension>
@@ -32,7 +32,7 @@
           placeholder="構文検索"
           @keydown.esc="isSearching = false"
         />
-      </template>
+      </template> -->
     </v-toolbar>
     <v-list subheader two-line>
       <v-subheader>構文リスト</v-subheader>
@@ -109,7 +109,7 @@ export default {
   data: () => ({
     items: [
       {
-        action: "mdi-ticket",
+        action: "mdi-ab-testing",
         active: true,
         items: [
           { title: "大見出し(h1)", handle: "LeftAdd", mdTextHead: "#" },
@@ -128,7 +128,7 @@ export default {
         title: "文章見出し",
       },
       {
-        action: "mdi-silverware-fork-knife",
+        action: "mdi-select-place",
 
         items: [
           {
@@ -154,7 +154,7 @@ export default {
       },
 
       {
-        action: "mdi-human-male-female-child",
+        action: "mdi-pencil-plus-outline",
         items: [
           {
             title: "水平線",

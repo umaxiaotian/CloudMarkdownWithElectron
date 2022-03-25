@@ -73,17 +73,18 @@ export default {
       console.log(handle);
       console.log(mdtext);
       var editorDefine = this.$store.state.editorDefineData;
+      var pos_start = editorDefine.selectionStart;
+      var pos_end = editorDefine.selectionEnd;
+      var val = editorDefine.value;
       if (handle == "LeftAdd") {
-        // console.log(editorDefine.scrollTop);
-        var pos_start = editorDefine.selectionStart;
-        // console.log(pos_start);
-        var pos_end = editorDefine.selectionEnd;
-        var val = editorDefine.value;
         var headLine = 0;
         for (let i = pos_start; i--; ) {
-          var ranges = val.slice(i - 2, i);
+          var ranges = val.slice(i);
+          console.log(ranges);
           if (~ranges.indexOf("\n")) {
-            headLine = i;
+            //改行コード2文字分を加算
+            headLine = i + 2;
+            console.log(i);
             break;
           }
         }
@@ -92,13 +93,15 @@ export default {
           headLine--;
         }
         var beforeNode = val.slice(0, headLine);
-
-        console.log(val.slice(headLine, pos_end));
         var afterNode = val.slice(headLine);
-
         var insertNode = mdtext + " ";
-
-        // editorDefine.value = beforeNode + insertNode + afterNode;
+        this.$store.commit("markdownText", beforeNode + insertNode + afterNode);
+      }
+      if (handle == "Center") {
+        var range = val.slice(pos_start, pos_end);
+        var beforeNode = val.slice(0, pos_start);
+        var afterNode = val.slice(pos_end);
+        var insertNode = mdtext + range + mdtext;
         this.$store.commit("markdownText", beforeNode + insertNode + afterNode);
       }
     },
@@ -115,7 +118,7 @@ export default {
           { title: "中見出し(h4)", handle: "LeftAdd", mdtext: "####" },
           { title: "小見出し(h5)", handle: "LeftAdd", mdtext: "#####" },
           { title: "小見出し(h6)", handle: "LeftAdd", mdtext: "######" },
-          { title: "太文字" },
+          { title: "太文字", handle: "Center", mdtext: "**" },
         ],
         title: "文章見出し",
       },
@@ -128,7 +131,13 @@ export default {
 
       {
         action: "mdi-human-male-female-child",
-        items: [{ title: "表の挿入" }],
+        items: [
+          {
+            title: "水平線",
+            handle: "LeftAdd",
+            mdtext: "---------------------------------------",
+          },
+        ],
         title: "挿入",
       },
     ],

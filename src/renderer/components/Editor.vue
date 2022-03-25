@@ -1,8 +1,6 @@
 
 <template>
-
   <v-app>
- 
     <splitpanes
       class="default-theme"
       style="height: 100%"
@@ -34,85 +32,80 @@
 </template>
 
 <script>
-import { Splitpanes, Pane } from 'splitpanes'
-import 'splitpanes/dist/splitpanes.css'
-import Textarea from '@/components/Textarea'
-import Viewarea from '@/components/Viewarea'
-const { ipcRenderer } = require('electron')
+import { Splitpanes, Pane } from "splitpanes";
+import "splitpanes/dist/splitpanes.css";
+import Textarea from "@/components/Textarea";
+import Viewarea from "@/components/Viewarea";
+const { ipcRenderer } = require("electron");
 export default {
-  name: 'Editor',
+  name: "Editor",
   components: { Splitpanes, Pane, Textarea, Viewarea },
-  data () {
+  data() {
     return {
       paneSize: 50,
       editorScrollTop: 0,
       editorScrollDefine: null,
       viewrScrollDefine: null,
-      markdown: '',
- 
-      whichBlockOver: 'Editor'
-    }
-  },
-computed: {
-  markdownText() {
-        return this.$store.getters.markdownText;
-      },
-},
-watch: {
-  markdownText (val) {
- this.markdown = val;
-  }
-},
-  mounted(){
+      markdown: "",
 
+      whichBlockOver: "Editor",
+    };
+  },
+  computed: {
+    markdownText() {
+      return this.$store.getters.markdownText;
+    },
+  },
+  watch: {
+    markdownText(val) {
+      this.inputEditor(val);
+    },
+  },
+  mounted() {
     //   this.$store.commit('markdownText',  this.markdown)
     //  this.editorData = this.$store.state.markdownText;
   },
-  created () {
+  created() {
     // IPCでメッセージを受信してファイルの制御を行う
-    ipcRenderer.on('main_file_message', (event, arg) => {
+    ipcRenderer.on("main_file_message", (event, arg) => {
       switch (arg) {
-      case 'open':
-        // ファイルを開く
-        ipcRenderer.invoke('file-open').then(data => {
-          this.markdown = data.returnData[0].toString()
-        })
-        break
-      case 'save':
-        // ファイルを保存
-        // saveFile();
-        break
-      case 'saveas':
-        // 名前を付けてファイルを保存
-        ipcRenderer.invoke('save', this.markdown)
-        break
+        case "open":
+          // ファイルを開く
+          ipcRenderer.invoke("file-open").then((data) => {
+            this.markdown = data.returnData[0].toString();
+          });
+          break;
+        case "save":
+          // ファイルを保存
+          // saveFile();
+          break;
+        case "saveas":
+          // 名前を付けてファイルを保存
+          ipcRenderer.invoke("save", this.markdown);
+          break;
       }
-    })
+    });
   },
-  mounted () {
-    const rView = document.getElementById('rightView')
-    this.viewrScrollDefine = rView
+  mounted() {
+    const rView = document.getElementById("rightView");
+    this.viewrScrollDefine = rView;
   },
   methods: {
-    forcus (val) {
-      this.whichBlockOver = val
+    forcus(val) {
+      this.whichBlockOver = val;
     },
-    codeEditorDefine (val) {
+    codeEditorDefine(val) {
       // console.log(val);
-      this.editorScrollDefine = val
+      this.editorScrollDefine = val;
 
- this.$emit('editorDefine', this.editorScrollDefine)
-
-
-
-
+      this.$emit("editorDefine", this.editorScrollDefine);
     },
-    editorScroll (val) {
+    editorScroll(val) {
       // スクロール比率を計算　（100%が1）
-      const scrollRatio = val.scrollTop / (val.scrollHeight - val.clientHeight)
-      this.scrollMerge(scrollRatio)
+      const scrollRatio = val.scrollTop / (val.scrollHeight - val.clientHeight);
+      this.scrollMerge(scrollRatio);
     },
-    viewrScroll (val) {
+    viewrScroll(val) {
       // const leditor = document.getElementById("leftEditor");
       // this.editorScrollDefine = leditor;
       // console.log(this.editorScrollDefine.scrollTop);
@@ -120,28 +113,28 @@ watch: {
       // スクロール比率を計算　（100%が1）
       const scrollRatio =
         val.target.scrollTop /
-        (val.target.scrollHeight - val.target.clientHeight)
-      this.scrollMerge(scrollRatio)
+        (val.target.scrollHeight - val.target.clientHeight);
+      this.scrollMerge(scrollRatio);
     },
-    scrollMerge (ratio) {
-      if (this.whichBlockOver == 'Editor') {
+    scrollMerge(ratio) {
+      if (this.whichBlockOver == "Editor") {
         this.viewrScrollDefine.scrollTop =
           (this.viewrScrollDefine.scrollHeight -
             this.viewrScrollDefine.clientHeight) *
-          ratio
+          ratio;
       }
-      if (this.whichBlockOver == 'Viewr') {
+      if (this.whichBlockOver == "Viewr") {
         this.editorScrollTop =
           (this.editorScrollDefine.scrollHeight -
             this.editorScrollDefine.clientHeight) *
-          ratio
+          ratio;
       }
     },
 
     // 文字列を更新
-    inputEditor (contents) {
-      this.markdown = contents
-    }
-  }
-}
+    inputEditor(contents) {
+      this.markdown = contents;
+    },
+  },
+};
 </script>

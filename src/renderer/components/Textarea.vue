@@ -38,7 +38,7 @@ export default {
     mainText(value) {
       document.getElementById("codeEditor").value = value;
       this.line_counter(value);
-      document.getElementById("codeEditor").focus();
+      // document.getElementById("codeEditor").focus();
 
       //戻る機能を実装しようと思ったが、現在Clpboard製造中で、execCommmandは廃止の動きのためいったんこのまま
       // document.execCommand('insertText', false, value);

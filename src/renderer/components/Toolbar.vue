@@ -53,7 +53,7 @@
         <v-list-item
           v-for="child in item.items"
           :key="child.title"
-          @click="editText(child.handle, child.mdtext)"
+          @click="editText(child.handle, child.mdTextHead, child.mdTextTail)"
         >
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
@@ -69,9 +69,9 @@ export default {
   components: {},
   methods: {
     //左側に文字を追加するアクション
-    editText(handle, mdtext) {
+    editText(handle, mdTextHead, mdTextTail) {
       console.log(handle);
-      console.log(mdtext);
+      console.log(mdTextHead);
       var editorDefine = this.$store.state.editorDefineData;
       var pos_start = editorDefine.selectionStart;
       var pos_end = editorDefine.selectionEnd;
@@ -94,14 +94,14 @@ export default {
         }
         var beforeNode = val.slice(0, headLine);
         var afterNode = val.slice(headLine);
-        var insertNode = mdtext + " ";
+        var insertNode = mdTextHead + " ";
         this.$store.commit("markdownText", beforeNode + insertNode + afterNode);
       }
       if (handle == "Center") {
         var range = val.slice(pos_start, pos_end);
         var beforeNode = val.slice(0, pos_start);
         var afterNode = val.slice(pos_end);
-        var insertNode = mdtext + range + mdtext;
+        var insertNode = mdTextHead + range + mdTextTail;
         this.$store.commit("markdownText", beforeNode + insertNode + afterNode);
       }
     },
@@ -112,20 +112,44 @@ export default {
         action: "mdi-ticket",
         active: true,
         items: [
-          { title: "大見出し(h1)", handle: "LeftAdd", mdtext: "#" },
-          { title: "大見出し(h2)", handle: "LeftAdd", mdtext: "##" },
-          { title: "中見出し(h3)", handle: "LeftAdd", mdtext: "###" },
-          { title: "中見出し(h4)", handle: "LeftAdd", mdtext: "####" },
-          { title: "小見出し(h5)", handle: "LeftAdd", mdtext: "#####" },
-          { title: "小見出し(h6)", handle: "LeftAdd", mdtext: "######" },
-          { title: "太文字", handle: "Center", mdtext: "**" },
+          { title: "大見出し(h1)", handle: "LeftAdd", mdTextHead: "#" },
+          { title: "大見出し(h2)", handle: "LeftAdd", mdTextHead: "##" },
+          { title: "中見出し(h3)", handle: "LeftAdd", mdTextHead: "###" },
+          { title: "中見出し(h4)", handle: "LeftAdd", mdTextHead: "####" },
+          { title: "小見出し(h5)", handle: "LeftAdd", mdTextHead: "#####" },
+          { title: "小見出し(h6)", handle: "LeftAdd", mdTextHead: "######" },
+          {
+            title: "太文字",
+            handle: "Center",
+            mdTextHead: "**",
+            mdTextTail: "**",
+          },
         ],
         title: "文章見出し",
       },
       {
         action: "mdi-silverware-fork-knife",
 
-        items: [{ title: "中央" }, { title: "右寄せ" }, { title: "左寄せ" }],
+        items: [
+          {
+            title: "中央",
+            handle: "Center",
+            mdTextHead: '<div style="text-align: center;">',
+            mdTextTail: "</div>",
+          },
+          {
+            title: "右寄せ",
+            handle: "Center",
+            mdTextHead: '<div style="text-align: right;">',
+            mdTextTail: "</div>",
+          },
+          {
+            title: "左寄せ",
+            handle: "Center",
+            mdTextHead: '<div style="text-align: left;">',
+            mdTextTail: "</div>",
+          },
+        ],
         title: "配置",
       },
 
@@ -135,7 +159,7 @@ export default {
           {
             title: "水平線",
             handle: "LeftAdd",
-            mdtext: "---------------------------------------",
+            mdTextHead: "---------------------------------------",
           },
         ],
         title: "挿入",

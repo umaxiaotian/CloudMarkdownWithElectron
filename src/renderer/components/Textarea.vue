@@ -51,6 +51,7 @@ export default {
       // console.log(value.split('\n').length);
       this.markdown = value
       this.line_counter(value)
+      document.getElementById('codeEditor').focus();
     },
     scrollTop (value) {
       document.getElementById('codeEditor').scrollTop = value
@@ -63,8 +64,9 @@ export default {
     this.codeEditor = document.getElementById('codeEditor')
     this.lineCounter = document.getElementById('lineCounter')
     // document.getElementById("codeEditor").textContent = this.mainText;
-
+    this.$store.commit('editorDefine',  document.getElementById('codeEditor'))
     this.$emit('codeEditorDefine', document.getElementById('codeEditor'))
+   
   },
   methods: {
     changeEditor () {

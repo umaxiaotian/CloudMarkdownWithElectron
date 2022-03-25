@@ -1,6 +1,8 @@
 
 <template>
+
   <v-app>
+ 
     <splitpanes
       class="default-theme"
       style="height: 100%"
@@ -47,8 +49,24 @@ export default {
       editorScrollDefine: null,
       viewrScrollDefine: null,
       markdown: '',
+ 
       whichBlockOver: 'Editor'
     }
+  },
+computed: {
+  markdownText() {
+        return this.$store.getters.markdownText;
+      },
+},
+watch: {
+  markdownText (val) {
+ this.markdown = val;
+  }
+},
+  mounted(){
+
+    //   this.$store.commit('markdownText',  this.markdown)
+    //  this.editorData = this.$store.state.markdownText;
   },
   created () {
     // IPCでメッセージを受信してファイルの制御を行う
@@ -82,6 +100,12 @@ export default {
     codeEditorDefine (val) {
       // console.log(val);
       this.editorScrollDefine = val
+
+ this.$emit('editorDefine', this.editorScrollDefine)
+
+
+
+
     },
     editorScroll (val) {
       // スクロール比率を計算　（100%が1）

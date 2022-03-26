@@ -70,28 +70,25 @@ export default {
   methods: {
     //左側に文字を追加するアクション
     editText(handle, mdTextHead, mdTextTail) {
-      console.log(handle);
-      console.log(mdTextHead);
       var editorDefine = this.$store.state.editorDefineData;
       var pos_start = editorDefine.selectionStart;
       var pos_end = editorDefine.selectionEnd;
       var val = editorDefine.value;
+
+      
       if (handle == "LeftAdd") {
         var headLine = 0;
         for (let i = pos_start; i--; ) {
-          var ranges = val.slice(i-2,i);
-          console.log(ranges);
-          if (ranges.match(/\n/)) {
+          var ranges = val.slice(i, pos_start);
+          console.log(ranges); 
+         if (ranges.match(/\n/)) {
             //改行コード2文字分を加算
-            headLine = i;
-            console.log(i);
+            headLine = i+1
+             ;
             break;
-          }
+          } 
         }
-        //0出ない場合1つ進んでしまうため、ここで-1戻る。
-        if (headLine != 0) {
-          headLine--;
-        }
+   
         var beforeNode = val.slice(0, headLine);
         var afterNode = val.slice(headLine);
         var insertNode = mdTextHead + " ";

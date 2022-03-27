@@ -77,8 +77,8 @@ export default {
         this.codeEditor.value =
           value.slice(0, selectionStart) + "\t" + value.slice(selectionEnd);
         this.codeEditor.setSelectionRange(
-          selectionStart + 2,
-          selectionStart + 2
+          selectionStart + 1,
+          selectionStart + 1
         );
       }
     },

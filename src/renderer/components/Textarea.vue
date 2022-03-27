@@ -42,6 +42,7 @@ export default {
       document.getElementById("codeEditor").value = value;
       this.line_counter(value);
 
+      //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
         value != this.history[this.history_position - 1] ||
         this.history[this.history_position - 1] == null
@@ -49,13 +50,6 @@ export default {
         this.history.push(value);
         this.history_position = this.history.length;
       }
-
-      console.log(value);
-      console.log(this.history[this.history_position - 1]);
-      //       // document.getElementById("codeEditor").focus();
-
-      //戻る機能を実装しようと思ったが、現在Clpboard製造中で、execCommmandは廃止の動きのためいったんこのまま
-      // document.execCommand('insertText', false, value);
     },
     scrollTop(value) {
       document.getElementById("codeEditor").scrollTop = value;
@@ -78,18 +72,17 @@ export default {
         switch (event.key) {
           case "z":
             this.undoRedoPosition("undo");
-            console.log("undo");
             // console.log(this.history);
             event.preventDefault();
             break;
           case "y":
             this.undoRedoPosition("redo");
-            console.log("redo");
             event.preventDefault();
             break;
         }
       }
     },
+    //UNDO REDO
     undoRedoPosition(event) {
       if (event == "undo" && this.history_position != 0) {
         this.history_position--;

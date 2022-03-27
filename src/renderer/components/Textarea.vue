@@ -100,6 +100,11 @@ export default {
       this.line_counter(text);
       if (this.history_position != 0) {
         this.changeEditor();
+      } else if (this.history_position == 0) {
+        //変数初期化
+        this.history = [];
+        this.history_position = 0;
+        this.changeEditor();
       }
     },
     scrollEditor() {

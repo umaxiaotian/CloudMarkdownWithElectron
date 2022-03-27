@@ -8,6 +8,7 @@
         wrap="off"
         @scroll="scrollEditor()"
         @input="changeEditor"
+        v-on:keydown="undoRedo"
       />
     </div>
   </v-app>
@@ -31,6 +32,8 @@ export default {
       lineCountCache: 0,
       codeEditor: "",
       lineCounter: "",
+      history: [],
+      history_position: 0,
     };
   },
   computed: {},
@@ -38,7 +41,18 @@ export default {
     mainText(value) {
       document.getElementById("codeEditor").value = value;
       this.line_counter(value);
-      // document.getElementById("codeEditor").focus();
+
+      if (
+        value != this.history[this.history_position - 1] ||
+        this.history[this.history_position - 1] == null
+      ) {
+        this.history.push(value);
+        this.history_position = this.history.length;
+      }
+
+      console.log(value);
+      console.log(this.history[this.history_position - 1]);
+      //       // document.getElementById("codeEditor").focus();
 
       //戻る機能を実装しようと思ったが、現在Clpboard製造中で、execCommmandは廃止の動きのためいったんこのまま
       // document.execCommand('insertText', false, value);
@@ -51,13 +65,49 @@ export default {
   mounted() {
     this.codeEditor = document.getElementById("codeEditor");
     this.lineCounter = document.getElementById("lineCounter");
-    // document.getElementById("codeEditor").textContent = this.mainText;
     this.$store.commit("editorDefine", document.getElementById("codeEditor"));
     this.$emit("codeEditorDefine", document.getElementById("codeEditor"));
   },
   methods: {
     changeEditor() {
       this.$emit("input", document.getElementById("codeEditor").value);
+    },
+    undoRedo(event) {
+      //ZYキーの無効化
+      if (event.ctrlKey) {
+        switch (event.key) {
+          case "z":
+            this.undoRedoPosition("undo");
+            console.log("undo");
+            // console.log(this.history);
+            event.preventDefault();
+            break;
+          case "y":
+            this.undoRedoPosition("redo");
+            console.log("redo");
+            event.preventDefault();
+            break;
+        }
+      }
+    },
+    undoRedoPosition(event) {
+      if (event == "undo" && this.history_position != 0) {
+        this.history_position--;
+      }
+      if (event == "redo" && this.history_position < this.history.length) {
+        this.history_position++;
+      }
+
+      var text = this.history[this.history_position - 1];
+      if (this.history_position == 0) {
+        text = "";
+      }
+
+      document.getElementById("codeEditor").value = text;
+      this.line_counter(text);
+      if (this.history_position != 0) {
+        this.changeEditor();
+      }
     },
     scrollEditor() {
       this.lineCounter.scrollTop = this.codeEditor.scrollTop;
@@ -83,6 +133,7 @@ export default {
       }
     },
 
+    //コードエディタの行数カウント
     line_counter(val) {
       const lineCount = val.split("\n").length;
       const outarr = new Array();

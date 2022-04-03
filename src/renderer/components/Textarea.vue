@@ -34,6 +34,7 @@ export default {
       lineCounter: "",
       history: [],
       history_position: 0,
+      editFlg: false,
     };
   },
   computed: {},
@@ -44,14 +45,13 @@ export default {
 
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
-        value != this.history[this.history_position - 1] ||
-        this.history[this.history_position - 1] == null
+        (value != this.history[this.history_position - 1] &&
+          this.history_position != 0) ||
+        this.editFlg == false
       ) {
-        if (value == null) {
-          console.log("NULLです");
-        }
         this.history.push(value);
         this.history_position = this.history.length;
+        this.editFlg = true;
       }
     },
     scrollTop(value) {
@@ -88,12 +88,12 @@ export default {
     //UNDO REDO
     undoRedoPosition(event) {
       console.log(this.history_position);
-      console.log(this.history.length - 1);
+      console.log(this.history.length);
       if (event == "undo" && this.history_position > 0) {
         this.history_position--;
       } else if (
         event == "redo" &&
-        this.history_position < this.history.length - 1
+        this.history_position < this.history.length
       ) {
         this.history_position++;
       }
@@ -105,6 +105,8 @@ export default {
 
       document.getElementById("codeEditor").value = text;
       this.line_counter(text);
+      this.changeEditor();
+
       if (this.history_position != 0) {
         this.changeEditor();
       } else if (this.history_position == 0) {

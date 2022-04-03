@@ -1,5 +1,5 @@
 # CloudMarkdown with Electron
-![image](https://user-images.githubusercontent.com/29545778/161442370-4935d2ea-9eb7-404f-a4e3-2ead269c1d3b.png)
+![image](https://user-images.githubusercontent.com/29545778/161442713-3f36235e-52b0-4f8f-bef5-fc4a9e6830e1.png)
 
 
 

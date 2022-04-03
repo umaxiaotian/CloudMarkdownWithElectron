@@ -42,6 +42,7 @@ export default {
     mainText(value) {
       document.getElementById("codeEditor").value = value;
       this.line_counter(value);
+      this.changeEditor();
 
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
@@ -89,12 +90,12 @@ export default {
     undoRedoPosition(event) {
       console.log(this.history_position);
       console.log(this.history.length);
+      console.log(this.history);
       if (event == "undo" && this.history_position > 0) {
         this.history_position--;
-      } else if (
-        event == "redo" &&
-        this.history_position < this.history.length
-      ) {
+        console.log(this.history_position);
+      }
+      if (event == "redo" && this.history_position < this.history.length) {
         this.history_position++;
       }
 
@@ -123,7 +124,7 @@ export default {
           })
           .then((result) => {
             if (result.isConfirmed) {
-              this.resetEditor;
+              this.resetEditor();
             } else {
               console.log("INPUT CANCEL");
               this.history_position = 0;

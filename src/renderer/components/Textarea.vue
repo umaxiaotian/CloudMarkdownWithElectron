@@ -88,9 +88,6 @@ export default {
     },
     //UNDO REDO
     undoRedoPosition(event) {
-      console.log(this.history_position);
-      console.log(this.history.length);
-      console.log(this.history);
       if (event == "undo" && this.history_position > 0) {
         this.history_position--;
         console.log(this.history_position);
@@ -110,11 +107,11 @@ export default {
 
       if (this.history_position != 0) {
         this.changeEditor();
-      } else if (this.history_position == 0) {
+      } else if (this.history_position == 0 && this.editFlg != false) {
         this.$swal
           .fire({
             title: "データクリア",
-            text: "これ以上戻るということはこのテキストの一時データをクリアすることを意味しますがよろしいですか？",
+            text: "これ以上戻るということはこのテキストの一時データをクリアし、新規でテキストを作成することを意味していますがよろしいですか？",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -126,8 +123,9 @@ export default {
             if (result.isConfirmed) {
               this.resetEditor();
             } else {
-              console.log("INPUT CANCEL");
               this.history_position = 0;
+              //一個進んであげる（親切）
+             this.undoRedoPosition("redo");
               
             }
           });
@@ -135,7 +133,6 @@ export default {
     },
     resetEditor() {
       // 変数初期化
-      console.log("リセットファンクション");
       this.history = [];
       this.history_position = 0;
       this.editFlg = false;

@@ -1,9 +1,10 @@
 # CloudMarkdown with Electron
-![image](https://user-images.githubusercontent.com/29545778/160267371-bcb8af07-90c7-435e-9009-a322e667a38a.png)
+![image](https://user-images.githubusercontent.com/29545778/161442370-4935d2ea-9eb7-404f-a4e3-2ead269c1d3b.png)
 
 
 
-####　ビルドセットアップ
+
+#### ビルドセットアップ
 
 ``` bash
 # install dependencies

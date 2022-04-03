@@ -128,6 +128,7 @@ export default {
           selectionStart + 1,
           selectionStart + 1
         );
+        this.codeEditor();
       }
     },
 

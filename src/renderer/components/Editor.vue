@@ -12,6 +12,7 @@
             id="leftEditor"
             :scroll-top="editorScrollTop"
             :main-text="markdown"
+            ref="editor"
             @textAreaScroll="editorScroll"
             @input="inputEditor"
             @codeEditorDefine="codeEditorDefine"
@@ -72,6 +73,7 @@ export default {
         case "open":
           // ファイルを開く
           ipcRenderer.invoke("file-open").then((data) => {
+            this.$refs.editor.resetEditor();
             this.markdown = data.returnData[0].toString();
           });
           break;

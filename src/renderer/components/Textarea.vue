@@ -123,16 +123,20 @@ export default {
           })
           .then((result) => {
             if (result.isConfirmed) {
-              // 変数初期化
-              this.history = [];
-              this.history_position = 0;
-              this.changeEditor();
+              this.resetEditor;
             } else {
               console.log("INPUT CANCEL");
               this.history_position = 0;
             }
           });
       }
+    },
+    resetEditor() {
+      // 変数初期化
+      console.log("リセットファンクション");
+      this.history = [];
+      this.history_position = 0;
+      this.changeEditor();
     },
     scrollEditor() {
       this.lineCounter.scrollTop = this.codeEditor.scrollTop;

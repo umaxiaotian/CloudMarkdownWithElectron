@@ -5,18 +5,22 @@
 
 
 #### ビルドセットアップ
+## 必要物
+・NodeJS(最新の安定板)<br>
+・Yarn(npmコマンドの進化したやつ)
 
+## インストール手順
 ``` bash
-# install dependencies
+# 必要ライブラリとかインストール
 yarn install
 
-# serve app with hot reload
+# Developerモードで実行
 yarn dev
 
-# build electron application for production
+# アプリケーションを.exe実行ファイルに書き出します。（※日本語ユーザー名だと書き出せないよ）
 yarn build
 
-# lint all JS/Vue component files in `src/`
+# lint あうべての JS/Vue `src/`のなかのファイル構文をチェックします。結構細かいこと言う。。。
 yarn lint
 
 ```

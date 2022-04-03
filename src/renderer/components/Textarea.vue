@@ -128,6 +128,7 @@ export default {
             } else {
               console.log("INPUT CANCEL");
               this.history_position = 0;
+              
             }
           });
       }
@@ -137,6 +138,7 @@ export default {
       console.log("リセットファンクション");
       this.history = [];
       this.history_position = 0;
+      this.editFlg = false;
       this.changeEditor();
     },
     scrollEditor() {

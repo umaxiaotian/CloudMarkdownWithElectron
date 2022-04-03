@@ -44,10 +44,10 @@ export default {
 
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
-        value != this.history[this.history_position -1] ||
+        value != this.history[this.history_position - 1] ||
         this.history[this.history_position - 1] == null
       ) {
-        if(value ==null){
+        if (value == null) {
           console.log("NULLです");
         }
         this.history.push(value);
@@ -87,20 +87,15 @@ export default {
     },
     //UNDO REDO
     undoRedoPosition(event) {
-
       console.log(this.history_position);
-      console.log(this.history.length -1 );
+      console.log(this.history.length - 1);
       if (event == "undo" && this.history_position > 0) {
         this.history_position--;
-        //デバッグ
-        // console.log("UNDO DEBUG:" + this.history_position);
       } else if (
         event == "redo" &&
-        this.history_position < this.history.length -2
+        this.history_position < this.history.length - 1
       ) {
         this.history_position++;
-        //デバッグ
-        // console.log("REDO DEBUG:" + this.history_position);
       }
 
       var text = this.history[this.history_position - 1];

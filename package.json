@@ -58,6 +58,7 @@
     "markdown-it-link-attributes": "3.0.0",
     "markdown-it-mark": "^3.0.1",
     "markdown-it-multimd-table": "^4.1.3",
-    "markdown-it-plantuml": "^1.4.1"
+    "markdown-it-plantuml": "^1.4.1",
+    "vue-sweetalert2": "^5.0.2"
   }
 }

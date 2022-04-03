@@ -44,9 +44,12 @@ export default {
 
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
-        value != this.history[this.history_position - 1] ||
+        value != this.history[this.history_position -1] ||
         this.history[this.history_position - 1] == null
       ) {
+        if(value ==null){
+          console.log("NULLです");
+        }
         this.history.push(value);
         this.history_position = this.history.length;
       }
@@ -84,11 +87,20 @@ export default {
     },
     //UNDO REDO
     undoRedoPosition(event) {
-      if (event == "undo" && this.history_position != 0) {
+
+      console.log(this.history_position);
+      console.log(this.history.length -1 );
+      if (event == "undo" && this.history_position > 0) {
         this.history_position--;
-      }
-      if (event == "redo" && this.history_position < this.history.length) {
+        //デバッグ
+        // console.log("UNDO DEBUG:" + this.history_position);
+      } else if (
+        event == "redo" &&
+        this.history_position < this.history.length -2
+      ) {
         this.history_position++;
+        //デバッグ
+        // console.log("REDO DEBUG:" + this.history_position);
       }
 
       var text = this.history[this.history_position - 1];
@@ -101,10 +113,28 @@ export default {
       if (this.history_position != 0) {
         this.changeEditor();
       } else if (this.history_position == 0) {
-        //変数初期化
-        this.history = [];
-        this.history_position = 0;
-        this.changeEditor();
+        this.$swal
+          .fire({
+            title: "データクリア",
+            text: "これ以上戻るということはこのテキストの一時データをクリアすることを意味しますがよろしいですか？",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "はい",
+            cancelButtonText: "いいえ",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              // 変数初期化
+              this.history = [];
+              this.history_position = 0;
+              this.changeEditor();
+            } else {
+              console.log("INPUT CANCEL");
+              this.history_position = 0;
+            }
+          });
       }
     },
     scrollEditor() {

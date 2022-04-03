@@ -18,7 +18,8 @@ module.exports = {
     '@nuxt/typescript-build'
   ],
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    'vue-sweetalert2/nuxt'
   ],
   vuetify: {
     theme: {

@@ -43,7 +43,6 @@ export default {
       document.getElementById("codeEditor").value = value;
       this.line_counter(value);
       this.changeEditor();
-
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
         (value != this.history[this.history_position - 1] &&
@@ -56,7 +55,14 @@ export default {
         this.editFlg = true;
       } else {
         if (value != this.history[this.history_position - 1]) {
-          console.log("さくじょだい");
+          //CTRL+Zをした後にキーボード入力されたら入力された以降のARRAYを削除する。
+          for (var i = this.history_position; i <= this.history.length; i++) {
+            console.log("削除" + i);
+            console.log(this.history.length--);
+            this.history.length--;
+            delete this.history[i];
+          }
+          console.log(this.history);
         }
       }
     },

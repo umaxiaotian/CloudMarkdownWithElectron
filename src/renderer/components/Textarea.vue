@@ -54,14 +54,18 @@ export default {
         this.history_position = this.history.length;
         this.editFlg = true;
       } else {
-        if (value != this.history[this.history_position - 1]) {
+        if (
+          value != this.history[this.history_position - 1] &&
+          this.history[this.history_position - 1] != null
+        ) {
           //CTRL+Zをした後にキーボード入力されたら入力された以降のARRAYを削除する。
           for (var i = this.history_position; i <= this.history.length; i++) {
             console.log("削除" + i);
-            console.log(this.history.length--);
             this.history.length--;
             delete this.history[i];
           }
+          this.editFlg == false;
+
           console.log(this.history);
         }
       }

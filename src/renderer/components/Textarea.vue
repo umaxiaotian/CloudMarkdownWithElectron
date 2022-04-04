@@ -47,12 +47,17 @@ export default {
       //更新値と格納値が同値でなければ更新値を履歴として保存する
       if (
         (value != this.history[this.history_position - 1] &&
-          this.history_position != 0) ||
+          this.history_position != 0 &&
+          this.history_position == this.history.length) ||
         this.editFlg == false
       ) {
         this.history.push(value);
         this.history_position = this.history.length;
         this.editFlg = true;
+      } else {
+        if (value != this.history[this.history_position - 1]) {
+          console.log("さくじょだい");
+        }
       }
     },
     scrollTop(value) {
@@ -90,7 +95,6 @@ export default {
     undoRedoPosition(event) {
       if (event == "undo" && this.history_position > 0) {
         this.history_position--;
-        console.log(this.history_position);
       }
       if (event == "redo" && this.history_position < this.history.length) {
         this.history_position++;
@@ -125,8 +129,7 @@ export default {
             } else {
               this.history_position = 0;
               //一個進んであげる（親切）
-             this.undoRedoPosition("redo");
-              
+              this.undoRedoPosition("redo");
             }
           });
       }

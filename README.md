@@ -1,21 +1,26 @@
 # CloudMarkdown with Electron
-![image](https://user-images.githubusercontent.com/29545778/160267371-bcb8af07-90c7-435e-9009-a322e667a38a.png)
+![image](https://user-images.githubusercontent.com/29545778/161442713-3f36235e-52b0-4f8f-bef5-fc4a9e6830e1.png)
 
 
 
-####　ビルドセットアップ
 
+#### ビルドセットアップ
+## 必要物
+・NodeJS(最新の安定板)<br>
+・Yarn(npmコマンドの進化したやつ)
+
+## インストール手順
 ``` bash
-# install dependencies
+# 必要ライブラリとかインストール
 yarn install
 
-# serve app with hot reload
+# Developerモードで実行
 yarn dev
 
-# build electron application for production
+# アプリケーションを.exe実行ファイルに書き出します。（※日本語ユーザー名だと書き出せないよ）
 yarn build
 
-# lint all JS/Vue component files in `src/`
+# lint あうべての JS/Vue `src/`のなかのファイル構文をチェックします。結構細かいこと言う。。。
 yarn lint
 
 ```
